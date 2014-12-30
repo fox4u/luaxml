@@ -2,7 +2,7 @@
 
 # generic compiler and linker settings:
 CC     = gcc
-INCDIR = -I../lua/src
+INCDIR = -I/usr/include
 LIB    = 
 LIBDIR =  -L. -L../lua/src
 CFLAGS = -Os -Wall -c #-g

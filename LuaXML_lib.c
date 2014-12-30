@@ -353,6 +353,15 @@ int Xml_load (lua_State *L) {
 	char* buffer = (char*)malloc(sz+1);
 	fread (buffer,1,sz,file);
 	fclose(file);
+	if(sz >= 3)
+	{
+		unsigned bom = (unsigned char)buffer[0] | ((unsigned char)buffer[1] << 8) | ((unsigned char)buffer[2] << 16);
+		if (bom == 0xBFBBEF)  // UTF8 BOM
+		{
+			sz = sz - 3;
+			memcpy(buffer, buffer+3, sz);
+		}
+	}
 	buffer[sz]=0;
 	lua_pushlightuserdata(L,buffer);
 	lua_replace(L,1);
